@@ -10,7 +10,7 @@
 
 # production
 /build
-
+Api/db.php
 # misc
 .DS_Store
 .env.local
