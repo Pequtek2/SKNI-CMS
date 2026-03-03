@@ -69,6 +69,7 @@ Oficjalna platforma internetowa **Studenckiego Koła Naukowego Informatyków (SK
 
 5. **Deploy (Produkcja):**
    Zbuduj aplikację poleceniem `npm run build` i przenieś zawartość wygenerowanego folderu `/build` oraz katalog `/Api` na swój serwer docelowy (np. Apache/Nginx). Pamiętaj o utworzeniu folderów `/uploads` i `/downloads` z odpowiednimi uprawnieniami (chmod 777 dla zapisu z poziomu PHP).
+   Zalogujesz się do panelu admina przez login: admin i haslo: admin
 
 ## 👨‍💻 Autor
 
