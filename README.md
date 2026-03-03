@@ -1,70 +1,76 @@
-# Getting Started with Create React App
+# 🚀 SKNI Web Platform & CMS
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Oficjalna platforma internetowa **Studenckiego Koła Naukowego Informatyków (SKNI)**, zrzeszającego studentów kierunku Informatyka Przemysłowa. Projekt łączy nowoczesny frontend z autorskim, lekkim systemem CMS stworzonym całkowicie od zera.
 
-## Available Scripts
+## 🌟 Główne funkcje
 
-In the project directory, you can run:
+- **W pełni autorski CMS:** Dedykowany Panel Redaktora i Administratora do zarządzania treścią bez konieczności używania ciężkich rozwiązań typu WordPress.
+- **Modułowa struktura:** Blog (z systemem kategorii), dynamiczna Galeria (z efektem Lightbox i Glassmorphism), Portfolio Projektów, Kalendarz Wydarzeń oraz Hub użytecznych linków.
+- **Promocja Gamedevu:** Wbudowany landing page (GameView) promujący autorską grę pt. *"Re-boot"* (Godot Engine) z możliwością pobrania buildów na Windows, macOS i Linux.
+- **Nowoczesny UI/UX:** Stylizacja w nurcie Glassmorphism, zaawansowane animacje w tle (Parallax CSS), pełna responsywność (Mobile First) oraz integracja z meta tagami Open Graph.
 
-### `npm start`
+## 🛠 Technologie
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- **Frontend:** React.js, Tailwind CSS, Lucide Icons, Axios.
+- **Backend:** PHP 8 (PDO), REST API.
+- **Baza danych:** MySQL (MariaDB).
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 📂 Struktura Projektu
 
-### `npm test`
+- `/src` - Komponenty React, routing (App.js) oraz style.
+- `/Api` - Endpointy PHP odpowiadające za komunikację z bazą danych (CRUD).
+- `/uploads` & `/downloads` - Katalogi na serwerze docelowym przechowujące grafiki i pliki gier.
+- `database.sql` - Gotowy zrzut bazy danych ze strukturą tabel.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## ⚙️ Instalacja i Uruchomienie (Wersja Deweloperska)
 
-### `npm run build`
+1. **Sklonuj repozytorium:**
+   ```bash
+   git clone https://github.com/Pequtek2/SKNI-CMS.git
+   ```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+2. **Baza danych:**
+   - Utwórz nową bazę danych (np. `skni_db`) w phpMyAdmin (z kodowaniem `utf8mb4_unicode_ci`).
+   - Zaimportuj do niej plik `database.sql` dołączony do głównego folderu projektu.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+3. **Konfiguracja backendu (PHP):**
+   Utwórz plik `Api/db.php` na podstawie poniższego schematu (zmień dane logowania na swoje docelowe):
+   
+   *Schemat pliku `Api/db.example.php`:*
+   ```php
+   <?php
+   // Ustawienia dostępu do bazy danych
+   $host = 'localhost';
+   $db_name = 'skni_db';
+   $username = 'root';     // Twój użytkownik bazy (np. root dla XAMPP)
+   $password = '';         // Twoje hasło (domyślnie puste dla XAMPP)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+   // Nagłówki CORS (Ważne dla Reacta)
+   header("Access-Control-Allow-Origin: *");
+   header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+   header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
 
-### `npm run eject`
+   try {
+       $conn = new PDO("mysql:host=" . $host . ";dbname=" . $db_name . ";charset=utf8mb4", $username, $password);
+       $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+       $conn->exec("SET NAMES utf8mb4"); 
+   } catch(PDOException $exception) {
+       echo "Błąd połączenia: " . $exception->getMessage();
+       exit();
+   }
+   ?>
+   ```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+4. **Frontend:** W głównym katalogu projektu uruchom w terminalu komendy:
+   ```bash
+   npm install
+   npm start
+   ```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+5. **Deploy (Produkcja):**
+   Zbuduj aplikację poleceniem `npm run build` i przenieś zawartość wygenerowanego folderu `/build` oraz katalog `/Api` na swój serwer docelowy (np. Apache/Nginx). Pamiętaj o utworzeniu folderów `/uploads` i `/downloads` z odpowiednimi uprawnieniami (chmod 777 dla zapisu z poziomu PHP).
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## 👨‍💻 Autor
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Projekt został zaprojektowany, zaprogramowany i wdrożony od podstaw przez:
+**Adam Latała** – student Informatyki Przemysłowej i członek Studenckiego Koła Naukowego Informatyków (SKNI).
